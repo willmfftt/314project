@@ -6,6 +6,7 @@
 package cryptoprogram;
 
 import java.util.*;
+import java.io.*;
 
 /**
  *
@@ -16,20 +17,27 @@ public class ElGamal {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    
+    public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
-        int q = discreteLogProb(19683, 3);
-        System.out.print("Back in Main: " + q);
+        //int q = discreteLogProb(19683, 3);
+        //System.out.print("Back in Main: " + q);
+        Scanner inFile = new Scanner(new FileReader("/Users/bradycusack/NetBeansProjects/CryptoProgram/src/cryptoprogram/elgamal.txt"));
+        
+        //ArrayList<Pair> pairs = new ArrayList<>();
+        String line = "";
+             
+        while(inFile.hasNextLine()){
+            line = inFile.nextLine();
+            System.out.println(line);
+        }
     }
 
     // Function for Discrete Logarithm Problem
     public static int discreteLogProb(int p, int alpha){
         int beta = 0;
         for(int i = 1; i < p; i++){
-            //for(int j = 1; j < i; j++){
                 beta = alpha % p;
-            //}
-            //System.out.print(beta + " ");
         }
         return beta;
     }
