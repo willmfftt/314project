@@ -44,7 +44,19 @@ public class ElGamal {
     
     // Function to do Modular Exponentation via Repeated Squaring
     public static int modExp() {
-        return 0;
+        int result = 1;
+        x = x % mod;
+
+        while (exp > 0)
+        {
+            if (exp % 2 != 0)
+                result = (result * x) % mod;
+
+            exp = exp / 2;
+            x = (x * x) % mod;
+        }
+
+        return result;
     }
 
     // Function to Convert Blocks of Text to Text
