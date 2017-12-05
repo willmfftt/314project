@@ -43,7 +43,7 @@ public class ElGamal {
     }
     
     // Function to do Modular Exponentation via Repeated Squaring
-    public static int modExp() {
+    public static int modExp(int x, int exp, int mod) {
         int result = 1;
         x = x % mod;
 
