@@ -17,41 +17,38 @@ public class ElGamal {
     /**
      * @param args the command line arguments
      */
+    
+    static Key key = new Key(31847, 5, 18074);
+    static ArrayList<Pair> pairs = new ArrayList<>();
+    
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
-        //int q = discreteLogProb(19683, 3);
-        //System.out.print("Back in Main: " + q);
-        Scanner inFile = new Scanner(new FileReader("/Users/bradycusack/NetBeansProjects/CryptoProgram/src/cryptoprogram/elgamal.txt"));
-
-        ArrayList<Pair> pairs = new ArrayList<>();
-        String line = "";
-
-        while (inFile.hasNextLine()) {
-            line = inFile.nextLine();
-            System.out.println(line);
-        }
+        populateList();
         
         
-        while(!pairs.isEmpty()){
-            System.out.println(calcM(pairs.get(0)));
-            pairs.remove(0);
-        }
     }
 
+    public static void populateList(){
+        //IN HERE, ADD ALL OF THE PAIRS INTO THE LIST LIKE BELOW:
+        pairs.add(new Pair(3781, 14409));
+        
+        
+    }
     // Function for Discrete Logarithm Problem
-    public static int discreteLogProb(int p, int alpha) {
-        int beta = 0;
+    public static int discreteLogProb() {
+        int p = key.getP();
+        int alpha = key.getAlpha();
+        int a = 0;
         for (int i = 1; i < p; i++) {
-            beta = alpha % p;
+            a = alpha % p;
         }
-        return beta;
+        return a;
     }
 
     // Function to do Modular Exponentation via Repeated Squaring
     public static int modExp(int x, int exp, int mod) {
         int result = 1;
         x = x % mod;
-
         while (exp > 0) {
             if (exp % 2 != 0) {
                 result = (result * x) % mod;
@@ -85,7 +82,7 @@ public class ElGamal {
 
     // Find the Inverse of r
     public static int inverseR(int r) {
-        return 0;
+        return modExp(r, key.alpha, discreteLogProb());
     }
 
     public static String convertToText(int num) {
