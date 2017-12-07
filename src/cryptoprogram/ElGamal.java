@@ -7,6 +7,7 @@ package cryptoprogram;
 
 import java.util.*;
 import java.io.*;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -28,8 +29,15 @@ public class ElGamal {
     static ArrayList<Integer> mVals = new ArrayList<>();
     
     public static void main(String[] args) throws FileNotFoundException {
+
+
         // TODO code application logic here
-        populateList();
+        try {
+            populateList();
+        } catch (FileNotFoundException ex) {
+            System.err.println("Unable to open file");
+            System.exit(-1);
+        }
 
         /* Iterate through the list of pairs that were added in, print out the value
         of M that is calculated, and then add the m value to a list of mValues that
@@ -48,12 +56,17 @@ public class ElGamal {
         });
     }
 
-    public static void populateList(){
-        //IN HERE, ADD ALL OF THE PAIRS INTO THE LIST LIKE BELOW:
-        pairs.add(new Pair(3781, 14409));
-        
-        
+    public static void populateList() throws FileNotFoundException {
+        Scanner scan = new Scanner(new File("elgamal.txt")).useDelimiter("\\(");
+        while (scan.hasNext())
+        {
+            String pair = scan.next();
+            pair = pair.replace(")", "");
+            String[] strPairs = pair.split(",");
+            pairs.add(new Pair(Integer.valueOf(strPairs[0].trim()), Integer.valueOf(strPairs[1].trim())));
+        }
     }
+    
     // Function for Discrete Logarithm Problem
     public static int discreteLogProb() {
         int p = key.getP();
