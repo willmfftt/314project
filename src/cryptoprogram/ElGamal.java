@@ -23,12 +23,18 @@ public class ElGamal {
         //System.out.print("Back in Main: " + q);
         Scanner inFile = new Scanner(new FileReader("/Users/bradycusack/NetBeansProjects/CryptoProgram/src/cryptoprogram/elgamal.txt"));
 
-        //ArrayList<Pair> pairs = new ArrayList<>();
+        ArrayList<Pair> pairs = new ArrayList<>();
         String line = "";
 
         while (inFile.hasNextLine()) {
             line = inFile.nextLine();
             System.out.println(line);
+        }
+        
+        
+        while(!pairs.isEmpty()){
+            System.out.println(calcM(pairs.get(0)));
+            pairs.remove(0);
         }
     }
 
@@ -58,12 +64,6 @@ public class ElGamal {
         return result;
     }
 
-    // Function to Convert Blocks of Text to Text
-    public static String toText(int r, int t) {
-
-        return "blank";
-    }
-
     // Extended Euclidean Algorithm to find GCD
     public static int[] extendedEuclid(int p, int q) {
         if (q == 0) {
@@ -79,8 +79,8 @@ public class ElGamal {
     }
 
     // Function to Find M
-    public static int calcM() {
-        return 0;
+    public static int calcM(Pair pair) {        
+        return pair.getT()*inverseR(pair.getR());
     }
 
     // Find the Inverse of r
