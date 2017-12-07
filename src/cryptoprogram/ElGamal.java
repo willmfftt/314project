@@ -18,14 +18,34 @@ public class ElGamal {
      * @param args the command line arguments
      */
     
+    // A Key object that we will be using for the purpose of storing the key we are processing
     static Key key = new Key(31847, 5, 18074);
+    
+    // The list of Pair objects.
     static ArrayList<Pair> pairs = new ArrayList<>();
+    
+    // List of M values that we will be converting.
+    static ArrayList<Integer> mVals = new ArrayList<>();
     
     public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         populateList();
-        
-        
+
+        /* Iterate through the list of pairs that were added in, print out the value
+        of M that is calculated, and then add the m value to a list of mValues that
+        will later on be converted.*/
+        pairs.stream().map((pairList) -> {
+            System.out.println("Call to calcM for current pair: " + calcM(pairList));
+            return pairList;
+        }).forEachOrdered((pairList) -> {
+            mVals.add(calcM(pairList));
+        });
+
+        /* Iterate through the list of mVals which is the message from each pair
+        and then print out the text conversion of the mValues.*/
+        mVals.forEach((mValues) -> {
+            System.out.print(convertToText(mValues));
+        });
     }
 
     public static void populateList(){
@@ -141,6 +161,8 @@ public class ElGamal {
 
     }
 
+    /* Pair objects. We will create an ArrayList of every pair that we get as input 
+    that will be utilized when calculated the m values for the output! */ 
     static class Pair {
 
         int r;
